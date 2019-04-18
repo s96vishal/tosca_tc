@@ -1,0 +1,5 @@
+{
+    
+    "browserTeardownStrategy": "none",
+    "timeout": 20000
+}
