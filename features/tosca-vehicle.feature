@@ -29,3 +29,8 @@ Feature: Tosca vehicle insurance Testing
     Scenario:Select Pricing Option and click next
     When I select pricing option and click next
     Then I should see
+
+    Scenario:Enter Send quote data and click send
+    When I enter send quote data adn click send
+    Then I should see sent
+    

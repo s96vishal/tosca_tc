@@ -1,5 +1,6 @@
 const expect =require('chai').expect;
 
+
 module.exports=async function(){
     await this.Given("I visit tosca sample app website",function(){
       return helpers.loadPage("http://sampleapp.tricentis.com/101/")
@@ -83,21 +84,62 @@ module.exports=async function(){
         return driver.wait(until.elementsLocated(by.id('priceTable')),10000);
     })
 
-    this.When('I select pricing option and click next',function(){
-        driver.wait(until.elementsLocated(by.className('//*[@id="priceTable"]/tfoot/tr/th[2]/label[1]/span')),30000).then(()=>{
-            driver.findElement(by.className('//*[@id="priceTable"]/tfoot/tr/th[2]/label[1]/span')).click();
+    await this.When('I select pricing option and click next',function(){
+        driver.wait(until.elementsLocated(by.xpath('//*[@id="priceTable"]/tfoot/tr/th[2]/label[1]/span')),30000).then(()=>{
+            driver.findElement(by.xpath('//*[@id="priceTable"]/tfoot/tr/th[2]/label[1]/span')).click();
 
         });
-
-        return driver.wait(until.elementsLocated(by.id('nextsendquote')),20000).then(()=>{
-            driver.findElement(by.id('nextsendquote')).click();
+         
+        return driver.wait(until.elementsLocated(by.id('sendquote')),20000).then(()=>{
+             driver.findElement(by.id('sendquote')).click();
         })
+        ///////////
+        // return driver.wait(until.elementsLocated(by.xpath('//*[@id="priceTable"]/tfoot/tr/th[2]/label[1]/span')),30000).then(()=>{
+        //  driver.findElement(by.xpath('//*[@id="priceTable"]/tfoot/tr/th[2]/label[1]/span')).click();
 
+        //  });
+         
+        // var element =driver.findElement(by.xpath('//*[@id="priceTable"]/tfoot/tr/th[2]/label[1]/span'));
+        //     element.click();
+
+            
+           
+      
+                
+            //},30000);
+
+            
+        //var element1=driver.findElement(by.xpath('//*[@id="nextsendquote"]'));
+        //return element1.click();
+        //return helpers.clickHiddenElement('div[class="field buttons margin-top-20"] button','Next (Send Quote)');
+        
     })
 
-    this.Then('I should see',function(){
-        return true;
+  this.Then('I should see',function(){
+         return driver.wait(until.elementsLocated(by.id('email')),30000).then(()=>{
+         driver.findElement(by.id('email')).click();});}
+  )
+        
+    this.When('I enter send quote data adn click send',function(){
+        driver.findElement(by.id('email')).sendKeys("abc@xyz.com");
+        driver.findElement(by.id('phone')).sendKeys("8365698889");
+        driver.findElement(by.id('username')).sendKeys("s96vishal");
+        driver.findElement(by.id('password')).sendKeys("Vishal123");
+        driver.findElement(by.id('confirmpassword')).sendKeys("Vishal123");
+        driver.findElement(by.id('Comments')).sendKeys("Good website");
+       
+        return driver.wait(until.elementsLocated(by.id('sendemail')),30000).then(()=>{
+            driver.findElement(by.id('sendemail')).click();});
+   
     })
+
+    this.Then('I should see sent',function(){
+       
+       
+        return driver.wait(until.elementsLocated(by.className('confirm')),30000).then(()=>{
+            driver.findElement(by.className('confirm')).click();});
+    })
+
 }
 
 
